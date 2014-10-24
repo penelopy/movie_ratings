@@ -36,7 +36,6 @@ class Rating(Base):
     movie_id = Column(Integer, nullable = True)
     user_id = Column(Integer, nullable = True)
     rating = Column(Integer, nullable = True)
-    timestamp = Column(Integer, nullable = True)
 
 
 def connect():
@@ -51,7 +50,7 @@ def connect():
 def create_tables():
     engine = create_engine("sqlite:///ratings.db", echo=True)
     Base.metadata.create_all(engine)
-    
+
 ### End class declarations
 
 def main():
