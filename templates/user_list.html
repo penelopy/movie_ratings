@@ -1,5 +1,5 @@
 <html>
 {% for user in users %}
-<h2>User {{ user.id }}, age {{ user.age }} has {{ user.ratings|length}} ratings</h2>
+<h2>User: {{ user.id }} age {{ user.age }} has {{ user.ratings|length}} <a href="/reviews?user={{user.id}}"> ratings </a></h2>
 {% endfor %}
 </html>

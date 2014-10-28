@@ -18,18 +18,30 @@ def login():
     user = model.session.query(model.User).filter_by(email=email).filter_by(password=password).first()
 
     if user:
-        print "Login successful."
+        print "Login successful."           # Flash message
     else:
-        print "Username/password invalid"
-    # user = model.session.query(model.User).first()
-    # print user
+        print "Username/passwordS invalid"
+        
     return redirect("/userlist")
 
 
 @app.route('/userlist')
 def user_list(): 
-    user_list = model.session.query(model.User).limit(5).all()
+    user_list = model.session.query(model.User).limit(15).all()
     return render_template("user_list.html", users=user_list)
+
+@app.route('/reviews')
+def user_reviews():
+    user_id = request.args.get("user")
+    user = model.session.query(model.User).get(user_id) # User
+    user_rating_dict = {}
+
+    for rating in user.ratings:
+        movie = model.session.query(model.Movie).get(rating.movie_id)
+        movie_name = movie.movie_name
+        user_rating_dict[movie_name] = rating.rating
+
+    return render_template("user_rating.html", reviews=user_rating_dict, user=user.id)
 
 
 @app.route("/newuser", methods=['POST'])

@@ -1,0 +1,17 @@
+<html>
+
+
+<h1>User {{ user }} Ratings</h1>
+
+{% for movie,rating in reviews.iteritems() %}
+<div>
+{{movie}}
+</div>
+<div>
+Rating: {{rating}}
+</div>
+<br>
+{% endfor %}
+
+
+</html>
