@@ -2,7 +2,7 @@ from datetime import datetime, date
 import model
 import csv
 
-def load_users(session):
+def load_users(db_session):
     f = open('seed_data/u.user','r')
 
     lines = f.readlines()
@@ -16,12 +16,12 @@ def load_users(session):
                         occupation = fields[3],
                         zipcode = fields[4])
 
-        session.add(newuser)
+        db_session.add(newuser)
 
     f.close()
 
 
-def load_movies(session):
+def load_movies(db_session):
     f = open('seed_data/u.item','r')
 
     lines = f.readlines()
@@ -39,14 +39,14 @@ def load_movies(session):
 
         newmovie = model.Movie(id = fields[0],
                             movie_name= movie_name,
-                            released_at = datetime_obj,
+                            release_year = datetime_obj,
                             imdb_url = fields[3])
 
-        session.add(newmovie)
+        db_session.add(newmovie)
 
     f.close()
 
-def load_ratings(session):
+def load_ratings(db_session):
     f = open('seed_data/u.data','r')
 
     lines = f.readlines()
@@ -58,17 +58,18 @@ def load_ratings(session):
                 user_id = fields[1],
                 rating = fields[2])
 
-        session.add(newRating)
+        db_session.add(newRating)
 
     f.close()
 
-def main(session):
-    load_users(session)
-    load_movies(session)
-    load_ratings(session)
-    session.commit()
+
+def main(db_session):
+    # load_users(db_session)
+    # load_movies(db_session)
+    # load_ratings(db_session)
+    # db_session.commit()
 
 if __name__ == "__main__":
-    s = model.connect()
-    main(s)
+    db_session = model.connect()
+    main(db_session)
 

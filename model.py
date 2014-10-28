@@ -1,11 +1,17 @@
 import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine, ForeignKey
+from sqlalchemy import Column, Integer, String, DateTime, extract
+from sqlalchemy.orm import sessionmaker, relationship, backref, scoped_session
 
-ENGINE = None
-Session = None
+# # ENGINE = None
+# Session = None
+
+ENGINE = create_engine("sqlite:///ratings.db", echo=False)
+session = scoped_session(sessionmaker(bind=ENGINE, autocommit = False, autoflush = False))
+
+Base = declarative_base()
+Base.query = session.query_property()
 
 Base = declarative_base()
 
@@ -26,26 +32,19 @@ class Movie(Base):
 
     id = Column(Integer, primary_key = True)
     movie_name = Column(String(64), nullable = True)
-    released_at = Column(DateTime, nullable = True)
+    release_year = Column(DateTime, nullable = True)
     imdb_url = Column(String(64), nullable = True)
 
 class Rating(Base):
     __tablename__ = "ratings"
 
     id = Column(Integer, primary_key = True)
-    movie_id = Column(Integer, nullable = True)
-    user_id = Column(Integer, nullable = True)
+    movie_id = Column(Integer, ForeignKey('movies.id'))
+    user_id = Column(Integer, ForeignKey('users.id'))
     rating = Column(Integer, nullable = True)
 
-
-def connect():
-    global ENGINE
-    global Session
-
-    ENGINE = create_engine("sqlite:///ratings.db", echo=True)
-    Session = sessionmaker(bind=ENGINE)
-
-    return Session()
+    user = relationship("User", backref=backref("ratings", order_by=id))
+    movie = relationship("Movie", backref=backref("ratings", order_by=id))
 
 def create_tables():
     engine = create_engine("sqlite:///ratings.db", echo=True)
