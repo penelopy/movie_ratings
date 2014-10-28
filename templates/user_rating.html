@@ -3,12 +3,12 @@
 
 <h1>User {{ user }} Ratings</h1>
 
-{% for movie,rating in reviews.iteritems() %}
+{% for movie_info in reviews.values() %}
 <div>
-{{movie}}
+<a href="/movie?movie={{movie_info[2]}}"> {{movie_info[0]}} </a>
 </div>
 <div>
-Rating: {{rating}}
+Rating: {{movie_info[1]}}
 </div>
 <br>
 {% endfor %}

@@ -1,0 +1,29 @@
+<html>
+
+
+<h1> {{ movie.movie_name }} Ratings </h1>
+
+<div>
+    Rate this movie!
+</div>
+<form action="/new_review?movie={{movie.id}}" method="post">
+    <div>
+        Rating <input type="text" name="rating"> 
+    </div>
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+</form>
+
+
+{% for user,rating in reviews.iteritems() %}
+<div>
+User <a href="/user?user={{user}}">{{ user }} </a>
+</div>
+<div>
+Rating: {{rating}}
+</div>
+<br>
+{% endfor %}
+
+</html>
