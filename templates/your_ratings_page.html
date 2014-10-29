@@ -1,0 +1,19 @@
+<html>
+
+<h1>Your {{ user }} Ratings</h1>
+
+
+
+{% for movie_info in reviews.values() %}
+<div>
+<a href="/movie?movie={{movie_info[2]}}"> {{movie_info[0]}} </a>
+<a href="/update_review">Edit</a>
+</div>
+<div>
+Rating: {{movie_info[1]}}
+</div>
+<br>
+{% endfor %}
+
+
+</html>

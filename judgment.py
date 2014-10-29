@@ -23,8 +23,9 @@ def login():
         print "Login successful."           # Flash message
     else:
         print "Username/password is invalid"
-        
-    return redirect("/userlist")
+
+    url = "/user?user=" + str(user.id)
+    return redirect(url)
 
 
 @app.route('/userlist')
@@ -39,20 +40,24 @@ def user_reviews():
     user_rating_dict = {}
 
     for rating in user.ratings:
-        movie = model.session.query(model.Movie).get(rating.movie_id)
-        user_rating_dict[rating.movie_id] = [movie.movie_name, rating.rating, rating.movie_id]
+        movie_rating = rating.rating
+        movie_name = rating.movie.movie_name
+        movie_id = rating.movie.id
+        user_rating_dict[rating.movie_id] = [movie_name, movie_rating, movie_id]
 
     return render_template("user_rating.html", reviews=user_rating_dict, user=user.id)
 
 @app.route('/movie')
 def movie_reviews():
     movie_id = request.args.get("movie")
-    movie = model.session.query(model.Movie).get(movie_id) # Movie
+    movie_id = int(movie_id)
+    movie = model.session.query(model.Movie).get(movie_id) # Movie    
     movie_rating_dict = {}
 
-    for rating in movie.ratings:
-        user = model.session.query(model.User).get(rating.user_id) # User
-        movie_rating_dict[user.id] = rating.rating
+    for rating in movie.ratings:               
+        movie_rating = rating.rating
+        user_id = rating.user_id 
+        movie_rating_dict[user_id] = movie_rating
 
     return render_template("movie_ratings.html", reviews=movie_rating_dict, movie=movie)
 
@@ -70,6 +75,10 @@ def add_review():
 
     url = '/movie?movie=' + movie_id
     return redirect(url)
+
+@app.route('/update_review', methods=['GET','POST'])
+def update_review():
+    return render_template("your_ratings_page.html")
 
 @app.route("/newuser", methods=['POST'])
 def add_new_user():
