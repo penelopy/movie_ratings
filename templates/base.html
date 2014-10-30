@@ -1,0 +1,64 @@
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../static/css/signin.css" rel="stylesheet">
+    <script src="../static/js/ie-emulation-modes-warning.js"></script>
+
+    <style>
+    #registration-link{
+        text-align: center;
+    }
+    </style>
+
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-static-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">Movie Ratings Database</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{url_for('index')}}">Home</a></li>
+                        {% if g.user_email %}
+                        <li><a href="{{url_for('account_page')}}">My Account</a></li>
+                        {% else %}
+                        <li><a href="{{url_for('signin')}}">My Account</a></li>
+                        {% endif %}
+
+                        {% if g.user_email %}
+                        <li> <a href="{{url_for('logout')}}">Logout</a></li>
+                        {% else %}
+                        <li><a href="{{url_for('login')}}"> Login </a></li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            {% for message in messages %}
+            <ul class="flashes">
+                <li>{{message}}</li>
+            </ul>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>

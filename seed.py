@@ -2,7 +2,7 @@ from datetime import datetime, date
 import model
 import csv
 
-def load_users(db_session):
+def load_users(session):
     f = open('seed_data/u.user','r')
 
     lines = f.readlines()
@@ -16,12 +16,12 @@ def load_users(db_session):
                         occupation = fields[3],
                         zipcode = fields[4])
 
-        db_session.add(newuser)
+        session.add(newuser)
 
     f.close()
 
 
-def load_movies(db_session):
+def load_movies(session):
     f = open('seed_data/u.item','r')
 
     lines = f.readlines()
@@ -42,11 +42,11 @@ def load_movies(db_session):
                             release_year = datetime_obj,
                             imdb_url = fields[3])
 
-        db_session.add(newmovie)
+        session.add(newmovie)
 
     f.close()
 
-def load_ratings(db_session):
+def load_ratings(session):
     f = open('seed_data/u.data','r')
 
     lines = f.readlines()
@@ -54,22 +54,23 @@ def load_ratings(db_session):
     for line in lines:
         fields = line.split()
 
-        newRating = model.Rating(movie_id = fields[0],
-                user_id = fields[1],
+        newRating = model.Rating(user_id = fields[0],
+                movie_id = fields[1],
                 rating = fields[2])
 
-        db_session.add(newRating)
+        session.add(newRating)
 
     f.close()
 
 
-def main(db_session):
-    # load_users(db_session)
-    # load_movies(db_session)
-    # load_ratings(db_session)
-    # db_session.commit()
+def main(session):
+    load_users(session)
+    load_movies(session)
+    load_ratings(session)
+    session.commit()
 
 if __name__ == "__main__":
-    db_session = model.connect()
-    main(db_session)
+    # session = model.connect()
+    session = model.session
+    main(session)
 

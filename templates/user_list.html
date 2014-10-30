@@ -1,5 +1,8 @@
+{% extends 'base.html' %}
+{% block body %}
 <html>
 {% for user in users %}
-<h2>User: {{ user.id }} age {{ user.age }} has {{ user.ratings|length}} <a href="/user?user={{user.id}}"> ratings </a></h2>
+<h2>User: {{ user.id }} age {{ user.age }} has {{ user.ratings|length}} <a href="{{ url_for('user_reviews', user_id=user.id) }}"> ratings </a></h2>
 {% endfor %}
 </html>
+{% endblock %}

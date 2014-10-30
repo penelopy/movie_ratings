@@ -1,11 +1,12 @@
-<html>
+{% extends 'base.html' %}
+{% block body %}
 
 
 <h1>User {{ user }} Ratings</h1>
 
 {% for movie_info in reviews.values() %}
 <div>
-<a href="/movie?movie={{movie_info[2]}}"> {{movie_info[0]}} </a>
+<a href="{{url_for('movie_reviews', movie_id=movie_info[2]) }}"> {{movie_info[0]}} </a>
 </div>
 <div>
 Rating: {{movie_info[1]}}
@@ -14,4 +15,6 @@ Rating: {{movie_info[1]}}
 {% endfor %}
 
 
-</html>
+{% endblock %}
+
+

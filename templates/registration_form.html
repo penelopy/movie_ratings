@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container">
+
+      <form class="form-signin" role="form" action="/newuser" method="post">
+        <h2 class="form-signin-heading">Create a new account</h2>
+        <br>
+        Email<input type="email" class="form-control" required autofocus name="email">
+        Password<input type="password" class="form-control" required name="password">
+        Age<input type="age" class="form-control" required autofocus name="age">
+        Zipcode<input type="zipcode" class="form-control" required autofocus name="zipcode">
+        Gender<input type="gender" class="form-control" required autofocus name="gender">
+        Occupation<input type="occupation" class="form-control" required autofocus name="occupation">
+        <br>
+        <button class="btn btn-lg btn-primary btn-block" type="submit"> Submit </button> 
+      </form>
+        <div id="registration-link">
+            <a href="{{ url_for('index')}}"> Already have an account? </a>
+        </div>
+    </div> 
+{% endblock %}
+
+

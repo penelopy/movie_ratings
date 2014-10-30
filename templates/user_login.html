@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class="container">
+
+      <form class="form-signin" role="form" action="{{ url_for('login') }}" method="post">
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <input type="email" class="form-control" placeholder="Email address" required autofocus name="email">
+        <input type="password" class="form-control" placeholder="Password" required name="password">
+<!--         <div class="checkbox">
+          <label>
+            <input type="checkbox" value="remember-me"> Remember me
+          </label>
+        </div> -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+        <div id="registration-link">
+            <a href="{{ url_for('registration_form')}}"> Create an account </a>
+        </div>
+
+    </div> <!-- /container -->
+{% endblock %}
+
+

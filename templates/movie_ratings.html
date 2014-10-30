@@ -1,4 +1,5 @@
-<html>
+{% extends 'base.html' %}
+{% block body %}
 
 
 <h1> {{ movie.movie_name }} Ratings </h1>
@@ -18,7 +19,7 @@
 
 {% for user,rating in reviews.iteritems() %}
 <div>
-User <a href="/user?user={{user}}">{{ user }} </a>
+User <a href="{{url_for('user_reviews', user_id = user )}}">{{ user }} </a>
 </div>
 <div>
 Rating: {{rating}}
@@ -26,4 +27,4 @@ Rating: {{rating}}
 <br>
 {% endfor %}
 
-</html>
+{% endblock %}
