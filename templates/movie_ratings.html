@@ -7,7 +7,7 @@
 <div>
     Rate this movie!
 </div>
-<form action="/new_review?movie={{movie.id}}" method="post">
+<form action="{{ url_for('add_review', movie_id = movie.id ) }}" method="post">
     <div>
         Rating <input type="text" name="rating"> 
     </div>
@@ -17,12 +17,12 @@
 </form>
 
 
-{% for user,rating in reviews.iteritems() %}
+{% for rating in movie.ratings %}
 <div>
-User <a href="{{url_for('user_reviews', user_id = user )}}">{{ user }} </a>
+User <a href="{{url_for('user_reviews', user_id = rating.user_id )}}">{{ rating.user_id }} </a>
 </div>
 <div>
-Rating: {{rating}}
+Rating: {{ rating.rating }}
 </div>
 <br>
 {% endfor %}

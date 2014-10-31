@@ -4,12 +4,12 @@
 
 <h1>User {{ user }} Ratings</h1>
 
-{% for movie_info in reviews.values() %}
+{% for rating in ratings %}
 <div>
-<a href="{{url_for('movie_reviews', movie_id=movie_info[2]) }}"> {{movie_info[0]}} </a>
+<a href="{{url_for('movie_reviews', movie_id=rating.movie_id) }}"> {{ rating.movie.movie_name }} </a>
 </div>
 <div>
-Rating: {{movie_info[1]}}
+Rating: {{ rating.rating }}
 </div>
 <br>
 {% endfor %}

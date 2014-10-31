@@ -5,15 +5,15 @@
 
 <!-- Email,zipcode,occupation,gender -->
 
-{% for movie_info in reviews.values() %}
+{% for rating in ratings %}
 <div>
-<a href="/movie?movie={{movie_info[2]}}"> {{movie_info[0]}} </a>
-<form action="{{ url_for('update_review', movie_id=movie_info[2]) }}" method='POST'>
+<a href="{{ url_for('movie_reviews', movie_id = rating.movie_id) }}"> {{ rating.movie.movie_name }} </a>
+<form action="{{ url_for('update_review', movie_id = rating.movie_id) }}" method='POST'>
     <input type="text" name="rating"> <button type="submit">Change review </button>
 </form>
 </div>
 <div>
-Rating: {{movie_info[1]}}
+Rating: {{ rating.rating }}
 </div>
 <br>
 {% endfor %}
