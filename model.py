@@ -91,7 +91,6 @@ def create_tables():
 ### End class declarations
 
 def main():
-    """In case we need this for something"""
     pass
 
 if __name__ == "__main__":
